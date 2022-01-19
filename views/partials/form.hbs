@@ -1,0 +1,24 @@
+<form class="row g-3" method="post" action="/api/productos/">
+  <div class="col-md-10">
+    <label for="inpNombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="inpNombre" name="nombre" />
+  </div>
+  <div class="col-md-2">
+    <label for="inpPrecio" class="form-label">Precio</label>
+    <input type="numeric" class="form-control" id="inpPrecio" name="precio" />
+  </div>
+  <div class="col-12">
+    <label for="inpUrl" class="form-label">Imagen url</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inpUrl"
+      name="thumbnail"
+      placeholder="https://url.com"
+    />
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>
