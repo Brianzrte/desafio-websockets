@@ -46,7 +46,8 @@ const productos = [
       nombre: 'Escorpión de juguete',
       precio: 1000.87,
       thumbnail: 'https://sc04.alicdn.com/kf/H5794a667d8844b0592a7a76e8724842bt.jpg'
-    },
+    }
+    
 ];
 
 module.exports = productos;
