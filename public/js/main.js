@@ -10,7 +10,8 @@ socket.on('regenerarProductos', (productos) => {
         let html = template({productos});
         document.getElementById('tablaProductos').innerHTML = html;
     });
-
+    //Cree este emit para poder regenerar la tabla de productos desde otro navegador
+    socket.emit('finish-productos');
 });
 
 socket.on('regenerarChat', (chat) => {
@@ -23,7 +24,7 @@ socket.on('regenerarChat', (chat) => {
         document.getElementById('listaMensajes').innerHTML = html;
     });
     //Cree este emit para poder regenerar el chat cuando entro desde otro navegador, no se si esta bien
-    socket.emit('finish');
+    socket.emit('finish-chat');
 });
 
 document.getElementById('btnGuardarMensaje').addEventListener('click', (e) => {

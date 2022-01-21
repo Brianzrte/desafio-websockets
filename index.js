@@ -29,10 +29,13 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('finish', () => {
+    socket.on('finish-chat', () => {
         socket.emit('regenerarChat', chat);
     });
-    
+
+    socket.on('finish-productos', () => {
+        socket.emit('regenerarProductos', productos);
+    });
 
 });
 
