@@ -22,8 +22,8 @@ socket.on('regenerarChat', (chat) => {
         let html = template({chat});
         document.getElementById('listaMensajes').innerHTML = html;
     });
+    //Cree este emit para poder regenerar el chat cuando entro desde otro navegador, no se si esta bien
     socket.emit('finish');
-
 });
 
 document.getElementById('btnGuardarMensaje').addEventListener('click', (e) => {
