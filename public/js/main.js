@@ -37,7 +37,6 @@ document.getElementById('btnGuardarMensaje').addEventListener('click', (e) => {
         message: mensaje,
         date
     };
-    console.log(data);
     socket.emit('incomingMessage', data);
     document.getElementById('inpMensaje').value = '';
     document.getElementById('inpMensaje').focus();
