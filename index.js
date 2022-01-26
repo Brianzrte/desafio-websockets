@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 8080;
 
 //data
 const  productos  = require('./data/productos');
-const  chat = require('./data/chat');
+const chats = require('./models/chat/chat.api');
+const chat = new chats();
+
 
 //publics static files
 app.use(express.static(path.resolve(__dirname, 'public')));
@@ -20,23 +22,15 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 io.on('connection', socket => {
     console.log('Cliente conectado');
     socket.emit('regenerarProductos', productos);
-    socket.emit('regenerarChat', chat);
-
-    socket.on('incomingMessage', message => {
+    socket.emit('regenerarChat', chat.getAll());
+    
+    socket.on('incomingMessage', (message) => {
         if(message.email){
-            chat.push(message);
-            socket.emit('regenerarChat', chat);
+            chat.save(message);
+            socket.emit('enviarMensaje', message);
         }
     });
-
-    socket.on('finish-chat', () => {
-        socket.emit('regenerarChat', chat);
-    });
-
-    socket.on('finish-productos', () => {
-        socket.emit('regenerarProductos', productos);
-    });
-
+    
 });
 
 //rutas

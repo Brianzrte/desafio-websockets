@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group" id="listaMensajes">
   {{#if chat}}
     {{#each chat}}
       <li class="list-group-item">
@@ -18,7 +18,7 @@
     <li class="list-group-item">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="text-primary fw-bold">No hay mensajes</h4>
+          <span class="text-primary fw-bold">No hay mensajes</span>
         </div>
       </div>
     </li>

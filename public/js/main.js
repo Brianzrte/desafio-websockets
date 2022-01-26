@@ -1,5 +1,4 @@
-const socket = io();
-
+const socket = io("ws://localhost:8080");
 
 socket.on('regenerarProductos', (productos) => {
     
@@ -9,9 +8,10 @@ socket.on('regenerarProductos', (productos) => {
         let template = Handlebars.compile(data);
         let html = template({productos});
         document.getElementById('tablaProductos').innerHTML = html;
-    });
+    })
+    .catch(err => console.log(err));
     //Cree este emit para poder regenerar la tabla de productos desde otro navegador
-    socket.emit('finish-productos');
+    
 });
 
 socket.on('regenerarChat', (chat) => {
@@ -22,12 +22,32 @@ socket.on('regenerarChat', (chat) => {
         let template = Handlebars.compile(data);
         let html = template({chat});
         document.getElementById('listaMensajes').innerHTML = html;
-    });
-    //Cree este emit para poder regenerar el chat cuando entro desde otro navegador, no se si esta bien
-    socket.emit('finish-chat');
+    })
+    .catch(err => console.log(err));
+    
 });
 
-document.getElementById('btnGuardarMensaje').addEventListener('click', (e) => {
+socket.on('enviarMensaje', (message) => {
+    let html =  `
+    <li class="list-group-item">
+        <div class="row">
+        <div class="col-md-12">
+            <span
+            class="text-primary fw-bold"
+            style="font-size: small;"
+            >${message.email}</span>
+            <span style="color:#804000; font-size:small">[${message.date}]</span>
+            <span class="text-success fst-italic"> : ${message.message}</span>
+        </div>
+        </div>
+    </li>`;
+    document.getElementById('listaMensajes').innerHTML += html;
+
+
+});
+
+
+document.getElementById('btnEnviarMensaje').addEventListener('click', (e) => {
     e.preventDefault();
     
     const mensaje = document.getElementById('inpMensaje').value;
@@ -36,17 +56,19 @@ document.getElementById('btnGuardarMensaje').addEventListener('click', (e) => {
     const data = {
         email,
         message: mensaje,
-        date
+        date 
     };
     socket.emit('incomingMessage', data);
     document.getElementById('inpMensaje').value = '';
     document.getElementById('inpMensaje').focus();
+    
 });
 
 const getFormatDate = () => {
     const dateFull = new Date();
     const date = dateFull.getDate() + '-' + (dateFull.getMonth() + 1) + '-' +  dateFull.getFullYear()
                 + ' ' + dateFull.getHours() + ':' + dateFull.getMinutes() + ':' + dateFull.getSeconds();
+    console.log(date);
     return date;
 }
 
